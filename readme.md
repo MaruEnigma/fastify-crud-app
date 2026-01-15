@@ -42,7 +42,7 @@ A simple **CRUD (Create, Read, Update, Delete)** backend application built using
 1. Clone the repository
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/MaruEnigma/fastify-crud-app.git
 cd fastify-crud-app
 ```
 
