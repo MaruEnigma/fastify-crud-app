@@ -6,12 +6,11 @@
 
 generator client {
   provider = "prisma-client-js"
-  
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  // url      = env("DATABASE_URL")
 }
 
 enum UserRole {
@@ -23,7 +22,6 @@ enum OrderStatus {
   paid
   unpaid
 }
-
 
 model User {
 
@@ -107,5 +105,5 @@ model OrderItems {
   Price       Decimal               @db.Decimal( 10, 2 )
   OrderId     String
   order       Order                 @relation(fields: [OrderId], references: [id], onDelete: Cascade )
-}
 
+}
