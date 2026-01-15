@@ -1,0 +1,111 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  seller
+  purchaser
+}
+
+enum OrderStatus {
+  paid
+  unpaid
+}
+
+
+model User {
+
+  id              String            @id @default(uuid())
+  name            String
+  email           String            @unique
+  phoneNumber     String
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  role            UserRole          @default( purchaser )
+  product         Product[]
+  wallet          Wallet?
+  cart            Cart[]
+  order           Order[]
+
+}
+
+model Product {
+
+  id              String             @id @default(uuid())
+  title           String
+  description     String?      
+  price           Decimal            @db.Decimal( 10, 2 )
+  quantity        Int       
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  sellerId        String             
+  user            User               @relation ( fields: [ sellerId ], references: [id], onDelete: Cascade )  //relation with User
+  CartItems       CartItems[]
+  orderitems      OrderItems[]
+
+} 
+
+model Wallet {
+
+  id              String            @id @default(uuid())
+  user_id         String            @unique
+  balance         Decimal           @db.Decimal( 10, 2 )
+  user            User              @relation( fields: [user_id], references: [id], onDelete: Cascade )        //relation with User
+  updatedAt       DateTime          @updatedAt
+
+}
+
+model Cart {
+  id             String       @id @default(uuid())
+  PurchaserId    String       @unique
+  user           User         @relation(fields: [PurchaserId], references: [id], onDelete: Cascade)
+  CreatedAt      DateTime     @default(now())
+  CartItems      CartItems[]
+}
+
+model CartItems {
+  id            String    @id @default(uuid())
+  Cartid        String
+  cart          Cart      @relation(fields: [Cartid], references: [id], onDelete: Cascade)
+  ProductId     String
+  product       Product   @relation(fields: [ProductId], references: [id], onDelete: Cascade)
+  quantity      Int
+  UpdatedAt     DateTime  @updatedAt
+  @@unique([Cartid, ProductId]) // :white_tick: prevents duplicate product entries in the same cart
+}
+
+model Order {
+  id           String       @id @default(uuid())
+  UserId       String       
+  user         User         @relation(fields: [UserId], references: [id], onDelete: Cascade)
+  TotalAmount  Decimal      @db.Decimal(10, 2)
+  PlatformFee  Decimal      @db.Decimal(10, 2)
+  SellerAmount Decimal      @db.Decimal(10, 2)
+  Status       OrderStatus  @default(unpaid)
+  OrderItems   OrderItems[]
+  createdAt    DateTime     @default(now())
+}
+
+model OrderItems {
+
+  id          String                @id @default(uuid())
+  ProductId   String
+  product     Product               @relation(fields: [ProductId], references: [id], onDelete: Cascade)
+  quantity    Int
+  Price       Decimal               @db.Decimal( 10, 2 )
+  OrderId     String
+  order       Order                 @relation(fields: [OrderId], references: [id], onDelete: Cascade )
+}
+
