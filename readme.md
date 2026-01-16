@@ -1,6 +1,6 @@
 # Fastify Online Store Backend
 
-An Online Store backend application built using Fastify. This project provides APIs for managing store-related features such as users, products, carts, orders, and wallets. It is developed mainly for learning, practice, and portfolio purposes, focusing on real-world backend architecture.
+*An Online Store backend application built using Fastify. This project provides APIs for managing store-related features such as users, products, carts, orders, and wallets. It is developed mainly for learning, practice, and portfolio purposes, focusing on real-world backend architecture.*
 ---
 
 ##  Table of Contents
