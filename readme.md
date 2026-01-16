@@ -1,7 +1,6 @@
-# Fastify CRUD Application
+# Fastify Online Store Backend
 
-A simple **CRUD (Create, Read, Update, Delete)** backend application built using **Fastify**. This project is mainly for learning and practice purposes to understand how backend APIs work.
-
+An Online Store backend application built using Fastify. This project provides APIs for managing store-related features such as users, products, carts, orders, and wallets. It is developed mainly for learning, practice, and portfolio purposes, focusing on real-world backend architecture.
 ---
 
 ##  Table of Contents
@@ -15,13 +14,27 @@ A simple **CRUD (Create, Read, Update, Delete)** backend application built using
 
 ##  Features
 
-* Fast and lightweight backend using **Fastify**
-* Create, Read, Update, and Delete operations
-* RESTful API design
-* Clean and organized project structure
-* Prisma ORM support (if used)
-* Database integration (PostgreSQL / MongoDB)
-* Swagger UI for API testing and documentation
+Fast and high-performance backend using Fastify
+
+User management APIs
+
+Product management
+
+Cart functionality
+
+Order processing
+
+Wallet management
+
+RESTful API design
+
+Modular and scalable project structure
+
+Prisma ORM support (if used)
+
+Database integration (PostgreSQL / MongoDB)
+
+Swagger UI for API documentation and testing
 
 ---
 
@@ -96,7 +109,7 @@ http://localhost:3000/docs
 ## Author
 
 **Marwa Hussain**
-Aspiring Backend Developer
+Aspiring Backend Developer 
 
 ---
 
